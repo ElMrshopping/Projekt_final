@@ -38,8 +38,6 @@ build/
 ### Mac OS ###
 .DS_Store
 
-##DataBase
-ATMdb
 
 #Remove this File
 org.example.Depot_recurecu6279.pdf

@@ -1,7 +1,6 @@
 package org.example.Clients;
 
 import org.example.AppResources.GenerateIban;
-import org.example.AppResources.Verification;
 import org.example.Client;
 import org.example.Database.DataBaseManager;
 import org.sqlite.SQLiteException;
