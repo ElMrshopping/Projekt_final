@@ -3,16 +3,19 @@ package org.example;
 import org.example.AppResources.Client_Print;
 import org.example.Clients.Account;
 import org.example.Clients.Registration;
+import org.example.Database.DataBaseManager;
+import org.example.Database.Modele;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 public class ATM{
     public static void main(String[] args) throws IOException {
-       System.out.println("Willkommen bei Express Bank");
+       /*System.out.println("Willkommen bei Express Bank");
        System.out.println("Sind Sie schon registriert ?");
        System.out.println("Bitte wählen Sie eine Antwort : Ja/Nein ?");
        BufferedReader reader = null;
@@ -53,6 +56,14 @@ public class ATM{
        else if (antwort.equalsIgnoreCase("Ja")) {
            new Client_Print().option();
 
-       }
+       }*/
+        try (Connection conn =  DataBaseManager.getConnection()){
+            System.out.println("Connected to database.");
+            new Modele().init();
+
+        }
+        catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
     }
 }
