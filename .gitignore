@@ -41,3 +41,6 @@ build/
 
 #Remove this File
 org.example.Depot_recurecu6279.pdf
+
+#db.proprieties
+src/main/resources/db.properties
