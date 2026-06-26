@@ -49,4 +49,4 @@ src/main/resources/db.properties
 ATMdb.db
 ATMdb
 #Beleg
-src\main\java\org\example\Depot_recu\*.pdf
+src/main/java/org/example/Depot_recu/*.pdf
