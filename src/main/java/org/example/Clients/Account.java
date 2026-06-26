@@ -14,8 +14,12 @@ public class Account {
     public String createAccount(String type , LocalDateTime created_time , Client client){
         String iban_generate = new GenerateIban().generateIban();
         String insert = "INSERT INTO Compte (iban , type , created_at , pin_client) VALUES (?,?,?,?)";
-        try (Connection conn = DataBaseManager.getConnection();
-             PreparedStatement statement2 = conn.prepareStatement(insert)){
+        Connection conn = DataBaseManager.getConnection();
+        if (conn == null){
+            System.out.println("Connexion nicht gefunden");
+            return null;
+        }
+        try (PreparedStatement statement2 = conn.prepareStatement(insert)){
                 statement2.setString(1,iban_generate);
                 statement2.setString(2,type);
                 DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -25,9 +29,6 @@ public class Account {
                 if (statement2.executeUpdate()>0){
                     System.out.println("Konto erfolgreich geöffnet !");
                 }
-        }
-        catch(SQLiteException e) {
-            System.out.println(e.getMessage());
         }
         catch(Exception e) {
             System.out.println(e.getMessage());

@@ -13,13 +13,20 @@ public class DataBaseManager {
             if (connection == null) {
                 Properties properties = new Properties();
                 InputStream inputStream = DataBaseManager.class.getClassLoader().getResourceAsStream("db.properties");
+
+                if (inputStream == null) {
+                    System.out.println("Fichier db.properties introuvable !");
+                    return null;
+                }
                 properties.load(inputStream);
-                String driver = properties.getProperty("driver");
-                String url = properties.getProperty("url");
-                String username = properties.getProperty("username");
-                String password = properties.getProperty("password");
+                inputStream.close();
+                String driver = properties.getProperty("db.driver");
+                String url = properties.getProperty("db.url");
+                String username = properties.getProperty("db.username");
+                String password = properties.getProperty("db.password");
                 Class.forName(driver);
-                connection = DriverManager.getConnection(url, username, password);
+               connection = DriverManager.getConnection(url, username, password);
+               return connection;
             }
         }
         catch (Exception e) {

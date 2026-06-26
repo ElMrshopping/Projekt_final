@@ -10,9 +10,13 @@ import java.sql.*;
 public class Registration {
     public boolean enregistrement(Client client) throws SQLException{
         String insert = "INSERT INTO Client VALUES (?,?,?,?,?,?)";
-        try(Connection conn = DataBaseManager.getConnection();
-            PreparedStatement p = conn.prepareStatement(insert);)
-        {
+            Connection conn = DataBaseManager.getConnection();
+            if (conn == null){
+                System.out.println("Connexion impossible !");
+                return false;
+            }
+
+            try(PreparedStatement p = conn.prepareStatement(insert)) {
             boolean verification = new Verification().verifyPin(client.getPin());
             if(!verification){
              p.setInt(1,client.getPin());
@@ -28,8 +32,8 @@ public class Registration {
                 return false;
             }
         }
-        catch (SQLiteException e) {
-            e.printStackTrace();
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
             return true;
         }
     }

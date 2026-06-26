@@ -44,3 +44,9 @@ org.example.Depot_recurecu6279.pdf
 
 #db.proprieties
 src/main/resources/db.properties
+
+#Database
+ATMdb.db
+ATMdb
+#Beleg
+src\main\java\org\example\Depot_recu\*.pdf
