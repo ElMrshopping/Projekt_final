@@ -1,6 +1,7 @@
 package org.example.AppResources;
 
 import org.example.Client;
+import org.example.Clients.Balance;
 import org.example.Clients.Deposit;
 
 import java.io.BufferedReader;
@@ -60,13 +61,22 @@ public class Client_Print {
             System.out.println("Was wollen Sie heute machen ?");
             System.out.println("Bitte eine Option auswählen !");
             System.out.println("1.Einzahlung");
-            System.out.println("2.Auszahlung");
+            System.out.println("2.Balance ");
+            System.out.println("3.Auszahlung");
             String option = reader.readLine();
             switch (option) {
                 case "1":
                     System.out.println("Iban eingeben bitte :");
                     String iban = reader.readLine();
-                    new Deposit().deposit(iban);
+                    System.out.println("Entrez le Montant :");
+                    Scanner sc = new Scanner(System.in);
+                    int montant = sc.nextInt();
+                    new Deposit().deposit(iban , montant);
+                    break;
+                case "2" :
+                    System.out.println("Iban eingeben bitte :");
+                    String iban2 = reader.readLine();
+                    new Balance().checksolde(iban2);
                     break;
             }
         }

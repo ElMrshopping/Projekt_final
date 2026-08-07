@@ -9,10 +9,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Verification {
+    private final  Connection conn;
+    public Verification(){
+        this.conn = DataBaseManager.getInstance().getConnection();
+    }
+    public Verification(Connection conn){
+        this.conn = conn;
+    }
     public boolean verifyIban(String iban) {
         boolean result = false;
         String sql = "SELECT iban FROM Compte WHERE iban = ?";
-        Connection conn = DataBaseManager.getConnection();
         if (conn != null) {
             try (PreparedStatement statement = conn.prepareStatement(sql)) {
                 statement.setString(1, iban);
@@ -30,7 +36,6 @@ public class Verification {
     public boolean verifyPin(int pin) {
         boolean result = false;
         String sql = "SELECT pin FROM Client WHERE pin = ?";
-        Connection conn = DataBaseManager.getConnection();
         if (conn != null) {
             try (PreparedStatement statement = conn.prepareStatement(sql)) {
                 statement.setInt(1, pin);

@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 public class Modele {
     public  void init(){
-        try (Connection conn = DataBaseManager.getConnection()){
+        try (Connection conn = DataBaseManager.getInstance().getConnection()){
             String client = "CREATE TABLE IF NOT EXISTS Client(" +
                     "pin int PRIMARY KEY NOT NULL," +
                     "nom varchar(255) NOT NULL," +

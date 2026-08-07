@@ -10,7 +10,7 @@ import java.sql.*;
 public class Registration {
     public boolean enregistrement(Client client) throws SQLException{
         String insert = "INSERT INTO Client VALUES (?,?,?,?,?,?)";
-            Connection conn = DataBaseManager.getConnection();
+            Connection conn = DataBaseManager.getInstance().getConnection();
             if (conn == null){
                 System.out.println("Connexion impossible !");
                 return false;

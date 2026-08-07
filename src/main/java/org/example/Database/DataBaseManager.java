@@ -6,17 +6,18 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class DataBaseManager {
-    private static Connection connection;
 
-    public static Connection getConnection()  {
+    private static DataBaseManager instance;
+    private Connection connection;
+
+    private DataBaseManager() {
         try {
-            if (connection == null) {
                 Properties properties = new Properties();
                 InputStream inputStream = DataBaseManager.class.getClassLoader().getResourceAsStream("db.properties");
 
                 if (inputStream == null) {
                     System.out.println("Fichier db.properties introuvable !");
-                    return null;
+                    return;
                 }
                 properties.load(inputStream);
                 inputStream.close();
@@ -26,12 +27,18 @@ public class DataBaseManager {
                 String password = properties.getProperty("db.password");
                 Class.forName(driver);
                connection = DriverManager.getConnection(url, username, password);
-               return connection;
-            }
         }
         catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+    public static synchronized DataBaseManager getInstance(){
+        if (instance == null){
+            instance = new DataBaseManager();
+        }
+        return instance;
+    }
+    public Connection getConnection(){
         return connection;
     }
 }

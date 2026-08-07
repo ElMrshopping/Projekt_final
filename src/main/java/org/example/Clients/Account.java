@@ -14,7 +14,7 @@ public class Account {
     public String createAccount(String type , LocalDateTime created_time , Client client){
         String iban_generate = new GenerateIban().generateIban();
         String insert = "INSERT INTO Compte (iban , type , created_at , pin_client) VALUES (?,?,?,?)";
-        Connection conn = DataBaseManager.getConnection();
+        Connection conn = DataBaseManager.getInstance().getConnection();
         if (conn == null){
             System.out.println("Connexion nicht gefunden");
             return null;
