@@ -3,6 +3,7 @@ package org.example.Clients;
 import org.example.AppResources.GenerateIban;
 import org.example.Client;
 import org.example.Database.DataBaseManager;
+import org.mindrot.jbcrypt.BCrypt;
 import org.sqlite.SQLiteException;
 
 import java.sql.*;
@@ -20,12 +21,13 @@ public class Account {
             return null;
         }
         try (PreparedStatement statement2 = conn.prepareStatement(insert)){
+            String pin_hash = BCrypt.hashpw(client.getPin() , BCrypt.gensalt());
                 statement2.setString(1,iban_generate);
                 statement2.setString(2,type);
                 DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                 String date_time = created_time.format(format);
                 statement2.setString(3,date_time);
-                statement2.setInt(4,client.getPin());
+                statement2.setString(4,pin_hash);
                 if (statement2.executeUpdate()>0){
                     System.out.println("Konto erfolgreich geöffnet !");
                 }

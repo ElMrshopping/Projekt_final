@@ -10,7 +10,7 @@ public class Modele {
     public  void init(){
         try (Connection conn = DataBaseManager.getInstance().getConnection()){
             String client = "CREATE TABLE IF NOT EXISTS Client(" +
-                    "pin int PRIMARY KEY NOT NULL," +
+                    "pin VARCHAR(255) PRIMARY KEY NOT NULL," +
                     "nom varchar(255) NOT NULL," +
                     "prenom varchar(255) NOT NULL," +
                     "email varchar(255) NOT NULL ," +

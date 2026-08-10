@@ -1,6 +1,7 @@
 package org.example.AppResources;
 
 import org.example.Database.DataBaseManager;
+import org.mindrot.jbcrypt.BCrypt;
 import org.sqlite.SQLiteException;
 
 import java.sql.Connection;
@@ -33,17 +34,18 @@ public class Verification {
         }
         return result;
     }
-    public boolean verifyPin(int pin) {
+    public boolean verifyPin(String email , String iban) {
         boolean result = false;
-        String sql = "SELECT pin FROM Client WHERE pin = ?";
+        String sql = "SELECT pin FROM Client WHERE email = ?";
         if (conn != null) {
             try (PreparedStatement statement = conn.prepareStatement(sql)) {
-                statement.setInt(1, pin);
+                statement.setString(1, email);
                 ResultSet res = statement.executeQuery();
                 if (!res.next()) {
                     return result;
                 }
-                return !result;
+                String iban_dbb = res.getString("iban");
+                return BCrypt.checkpw(iban_dbb , iban);
 
             } catch (SQLException e) {
                 System.out.println(e.getMessage());

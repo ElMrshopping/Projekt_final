@@ -24,7 +24,7 @@ public class Client_Print {
         System.out.println("Email: ");
         String email = reader.readLine();
         System.out.println("Pincode:");
-        int pincode = sc.nextInt();
+        String pincode = sc.nextLine();
         System.out.println("Geburtsjahr:");
         int geburtsjahr = sc.nextInt();
         System.out.println("Geburtsmonth:");
@@ -43,7 +43,7 @@ public class Client_Print {
             System.out.print("Email: ");
             email = reader.readLine();
             System.out.print("Pincode: ");
-            pincode = sc.nextInt();
+            pincode = sc.nextLine();
             System.out.print("Geburtsdatum: ");
             System.out.println("Geburtsjahr:");
             geburtsjahr = sc.nextInt();

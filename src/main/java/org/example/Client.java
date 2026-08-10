@@ -6,10 +6,10 @@ import java.time.LocalDate;
 public class Client {
     private String nom;
     private String numero_telephone;
-    private int pin;
+    private String pin;
     private String email;
     private LocalDate date_naissance;
-    public Client(String nom, String prenom, String numero_telephone, int pin, String email, LocalDate date_naissance) {
+    public Client(String nom, String prenom, String numero_telephone, String pin, String email, LocalDate date_naissance) {
         this.nom = nom;
         this.prenom = prenom;
         this.numero_telephone = numero_telephone;
@@ -30,7 +30,7 @@ public class Client {
         this.numero_telephone = numero_telephone;
     }
 
-    public void setPin(int pin) {
+    public void setPin(String pin) {
         this.pin = pin;
     }
 
@@ -56,7 +56,7 @@ public class Client {
         return numero_telephone;
     }
 
-    public int getPin() {
+    public String getPin() {
         return pin;
     }
 

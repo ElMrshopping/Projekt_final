@@ -46,7 +46,8 @@ void setUp(){
     when(connection.prepareStatement(anyString())).thenReturn(preparedStatement);
     when(preparedStatement.executeQuery()).thenReturn(resultSet);
     when(resultSet.next()).thenReturn(true);
-    boolean result = verification.verifyPin(456);
+    when(verification.verifyPin("aurel@gmail.com","456789")).thenReturn(true);
+    boolean result = verification.verifyPin("aurel@gmail.com","456789");
     assertTrue(result);
     }
     @Test
@@ -62,7 +63,7 @@ void setUp(){
     when(connection.prepareStatement(anyString())).thenReturn(preparedStatement);
     when(preparedStatement.executeQuery()).thenReturn(resultSet);
     when(resultSet.next()).thenReturn(false);
-    boolean response = verification.verifyPin(58896);
+    boolean response = verification.verifyPin("bobytresor5@gmail.com" , "45789");
     assertFalse(response);
     }
 }
