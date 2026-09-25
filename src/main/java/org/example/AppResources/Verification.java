@@ -53,4 +53,45 @@ public class Verification {
         }
         return result;
     }
+    public boolean verifyPinWithiban(String iban ,  int pin){
+        boolean result = false;
+        String req = "SELECT pin_client FROM Compte WHERE iban = ? AND pin_client = ?";
+        if (conn != null) {
+            try (PreparedStatement statement = conn.prepareStatement(req)){
+                statement.setString(1 , iban);
+                statement.setInt(2 , pin);
+                ResultSet resultSet = statement.executeQuery();
+                if (!resultSet.next()){
+                    return result;
+                }
+                return !result;
+
+            }
+            catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return result;
+    }
+    public boolean verifySoldo(int montant , String iban) {
+        boolean result = false;
+        String req = "SELECT solde FROM Compte WHERE iban = ?";
+        if (conn != null) {
+            try (PreparedStatement statement = conn.prepareStatement(req)){
+                statement.setString(1 , iban);
+                ResultSet resultSet = statement.executeQuery();
+                if (resultSet.next()){
+                    int solde = resultSet.getInt(1);
+                    if (solde < montant){
+                        return result;
+                    }
+                    return !result;
+                }
+            }
+            catch (SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        return result;
+    }
 }

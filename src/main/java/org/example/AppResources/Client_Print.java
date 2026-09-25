@@ -3,6 +3,7 @@ package org.example.AppResources;
 import org.example.Client;
 import org.example.Clients.Balance;
 import org.example.Clients.Deposit;
+import org.example.Clients.Withdrawal;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,7 +14,8 @@ import java.util.Scanner;
 public class Client_Print {
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     Scanner sc = new Scanner(System.in);
-    public Client print () throws IOException {
+
+    public Client print() throws IOException {
         System.out.println("Fuer die Registrierung baruchen wir Ihre Daten !");
         System.out.println("Nachname: ");
         String nachname = reader.readLine();
@@ -32,8 +34,7 @@ public class Client_Print {
         System.out.println("Geburtsday:");
         int geburtsday = sc.nextInt();
         LocalDate geburtsdatum = LocalDate.of(geburtsjahr, geburtsmonth, geburtsday);
-        while (nachname.isEmpty() || vorname.isEmpty() || email.isEmpty() || geburtsdatum.toString().isEmpty() )
-        {
+        while (nachname.isEmpty() || vorname.isEmpty() || email.isEmpty() || geburtsdatum.toString().isEmpty()) {
             System.out.print("Nachname: ");
             nachname = reader.readLine();
             System.out.print("Vorname: ");
@@ -54,9 +55,10 @@ public class Client_Print {
             geburtsdatum = LocalDate.of(geburtsjahr, geburtsmonth, geburtsday);
 
         }
-        return new Client(nachname , vorname ,telefonnummer , pincode , email, geburtsdatum);
+        return new Client(nachname, vorname, telefonnummer, pincode, email, geburtsdatum);
     }
-    public void option(){
+
+    public void option() {
         try {
             System.out.println("Was wollen Sie heute machen ?");
             System.out.println("Bitte eine Option auswählen !");
@@ -71,16 +73,31 @@ public class Client_Print {
                     System.out.println("Entrez le Montant :");
                     Scanner sc = new Scanner(System.in);
                     int montant = sc.nextInt();
-                    new Deposit().deposit(iban , montant);
+                    new Deposit().deposit(iban, montant);
                     break;
-                case "2" :
+                case "2":
                     System.out.println("Iban eingeben bitte :");
                     String iban2 = reader.readLine();
                     new Balance().checksolde(iban2);
                     break;
+
+                case "3":
+                    System.out.println("Iban eingeben bitte :");
+                    String iban3 = reader.readLine();
+                    System.out.println("Entrez le Pincode :");
+                    Scanner sc2 = new Scanner(System.in);
+                    int pincode = sc2.nextInt();
+                    Withdrawal withdrawal = new Withdrawal();
+                    boolean reponse = withdrawal.retrait(iban3, pincode);
+                    if (reponse) {
+                        System.out.println("Retrait effectuee avec succes !!");
+                    } else {
+                        System.out.println("Echec retrait !!");
+                    }
+                    break;
+
             }
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }
