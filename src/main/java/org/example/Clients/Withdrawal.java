@@ -22,7 +22,7 @@ public class Withdrawal {
         this.verification = verification;
     }
 
-    public boolean retrait(String iban, int pin) {
+    public boolean retrait(String iban, String pin) {
         boolean resultVerification = verification.verifyPinWithiban(iban, pin);
         if (connection != null) {
             if (resultVerification) {

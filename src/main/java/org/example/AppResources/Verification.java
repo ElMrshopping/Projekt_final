@@ -53,18 +53,21 @@ public class Verification {
         }
         return result;
     }
-    public boolean verifyPinWithiban(String iban ,  int pin){
+    public boolean verifyPinWithiban(String iban ,  String pin){
         boolean result = false;
-        String req = "SELECT pin_client FROM Compte WHERE iban = ? AND pin_client = ?";
+        String req = "SELECT pin_client FROM Compte WHERE iban = ? ;";
         if (conn != null) {
             try (PreparedStatement statement = conn.prepareStatement(req)){
                 statement.setString(1 , iban);
-                statement.setInt(2 , pin);
                 ResultSet resultSet = statement.executeQuery();
-                if (!resultSet.next()){
+                if (!resultSet.next()) {
                     return result;
                 }
-                return !result;
+                String hash_pin = resultSet.getString("pin_client");
+                if (BCrypt.checkpw(pin , hash_pin)){
+                    return !result;
+                }
+                return result;
 
             }
             catch (SQLException e) {

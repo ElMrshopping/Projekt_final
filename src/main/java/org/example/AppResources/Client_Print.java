@@ -85,8 +85,7 @@ public class Client_Print {
                     System.out.println("Iban eingeben bitte :");
                     String iban3 = reader.readLine();
                     System.out.println("Entrez le Pincode :");
-                    Scanner sc2 = new Scanner(System.in);
-                    int pincode = sc2.nextInt();
+                    String pincode = reader.readLine();
                     Withdrawal withdrawal = new Withdrawal();
                     boolean reponse = withdrawal.retrait(iban3, pincode);
                     if (reponse) {
