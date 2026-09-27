@@ -18,7 +18,7 @@ public class Registration {
             }
 
             try(PreparedStatement p = conn.prepareStatement(insert)) {
-            boolean verification = new Verification().verifyPin(client.getEmail() ,client.getPin());
+            boolean verification = new Verification().verifyEmailExiste(client.getEmail());
             if(!verification){
                 String pin_hash = BCrypt.hashpw(client.getPin() , BCrypt.gensalt());
              p.setString(1,pin_hash);

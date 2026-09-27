@@ -34,7 +34,8 @@ public class Client_Print {
         System.out.println("Geburtsday:");
         int geburtsday = sc.nextInt();
         LocalDate geburtsdatum = LocalDate.of(geburtsjahr, geburtsmonth, geburtsday);
-        while (nachname.isEmpty() || vorname.isEmpty() || email.isEmpty() || geburtsdatum.toString().isEmpty()) {
+        boolean verificationTelefon = new Verification().verifyTelefon(telefonnummer);
+        while (nachname.isEmpty() || vorname.isEmpty() || email.isEmpty() || geburtsdatum.toString().isEmpty() || pincode.isEmpty() || !verificationTelefon) {
             System.out.print("Nachname: ");
             nachname = reader.readLine();
             System.out.print("Vorname: ");
@@ -43,9 +44,8 @@ public class Client_Print {
             telefonnummer = reader.readLine();
             System.out.print("Email: ");
             email = reader.readLine();
-            System.out.print("Pincode: ");
+            System.out.println("Pincode: ");
             pincode = sc.nextLine();
-            System.out.print("Geburtsdatum: ");
             System.out.println("Geburtsjahr:");
             geburtsjahr = sc.nextInt();
             System.out.println("Geburtsmonth:");

@@ -10,7 +10,7 @@ public class Modele {
     public  void init() {
         Connection conn = DataBaseManager.getInstance().getConnection();
         if (conn != null) {
-            try {
+            try(Statement stmt = conn.createStatement()) {
                 String client = "CREATE TABLE IF NOT EXISTS Client(" +
                         "pin VARCHAR(255) PRIMARY KEY NOT NULL," +
                         "nom varchar(255) NOT NULL," +
@@ -26,9 +26,9 @@ public class Modele {
                         "type varchar(255) NOT NULL," +
                         "block boolean DEFAULT false ," +
                         "created_at TEXT NOT NULL," +
-                        "pin_client int NOT NULL, " +
+                        "pin_client VARCHAR(255) NOT NULL, " +
                         "FOREIGN KEY(pin_client) REFERENCES Client(pin)ON DELETE CASCADE )";
-                Statement stmt = conn.createStatement();
+
                 stmt.execute(client);
                 stmt.execute(compte);
 

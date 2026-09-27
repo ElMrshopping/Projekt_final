@@ -34,9 +34,9 @@ public class Verification {
         }
         return result;
     }
-    public boolean verifyPin(String email , String iban) {
+    public boolean verifyEmailExiste(String email) {
         boolean result = false;
-        String sql = "SELECT pin FROM Client WHERE email = ?";
+        String sql = "SELECT email FROM Client WHERE email = ?";
         if (conn != null) {
             try (PreparedStatement statement = conn.prepareStatement(sql)) {
                 statement.setString(1, email);
@@ -44,9 +44,9 @@ public class Verification {
                 if (!res.next()) {
                     return result;
                 }
-                String iban_dbb = res.getString("iban");
-                return BCrypt.checkpw(iban_dbb , iban);
-
+                else  {
+                    return !result;
+                }
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
@@ -95,6 +95,10 @@ public class Verification {
                 System.out.println(e.getMessage());
             }
         }
+        return result;
+    }
+    public boolean verifyTelefon(String telefon) {
+        boolean result = telefon.matches("^\\+?\\d{10,15}$");
         return result;
     }
 }
